@@ -5,7 +5,7 @@ import {
     editTodo,
     getTodo,
     validate
-} from "../controllers/todoController"
+} from "../controllers/todoController.js"
 
 const todoRoutes = (app) => {
     app.route('/todo')
@@ -14,7 +14,7 @@ const todoRoutes = (app) => {
 
     app.route('/todo/:todoid')
         .get(getTodo)
-        .put(editTodo)
+        .put(validate('editTodo'), editTodo)
         .delete(deleteTodo)
 }
 

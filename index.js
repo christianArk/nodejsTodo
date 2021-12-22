@@ -1,8 +1,10 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import {initDBConnection} from './src/database/connection'
-import todoRoutes from './src/routes/todoRoutes'
-require('dotenv').config();
+import {initDBConnection} from './src/database/connection.js'
+import todoRoutes from './src/routes/todoRoutes.js'
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const app = express()
 const {PORT} = process.env

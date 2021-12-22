@@ -1,5 +1,5 @@
-import Todo from "../models/Todo"
-const { body, validationResult } = require('express-validator');
+import Todo from "../models/Todo.js"
+import { body, validationResult } from "express-validator";
 
 export const getTodos = async (req, res) => {
     const todos = await Todo.findAll()
@@ -60,8 +60,24 @@ export const validate = (method) => {
         case 'createTodo':
             return [
                 body('title', "The title field is required").not().isEmpty(),
+                body('title').custom(async value => {
+                    const count = await Todo.count({
+                                    where: {
+                                        title: value
+                                    }
+                                })
+                    console.log(count, 'counter')
+                    if(count >= 1)
+                        throw new Error('This todo item already exists')
+                    return true
+                }),
                 body('status', "The status must be either true or false").isIn([true, false])
             ]
+        case 'editTodo':
+                return [
+                    body('title', "The title field is required").not().isEmpty(),
+                    body('status', "The status must be either true or false").isIn([true, false])
+                ]
         default:
             break;
     }

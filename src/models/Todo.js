@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-import { sequelize } from '../database/connection';
+import { DataTypes } from 'sequelize';
+import { sequelize } from '../database/connection.js';
 
 const Todo = sequelize.define('Todo', {
     title: {
